@@ -1,3 +1,6 @@
 [submodule "microservice-auth"]
 	path = microservice-auth
 	url = git@github.com:SST-Bappu/microservice-auth.git
+[submodule "email-service"]
+	path = email-service
+	url = git@github.com:SST-Bappu/email-service.git
