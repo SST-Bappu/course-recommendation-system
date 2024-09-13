@@ -1,0 +1,3 @@
+[submodule "microservice-auth"]
+	path = microservice-auth
+	url = git@github.com:SST-Bappu/microservice-auth.git
