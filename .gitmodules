@@ -4,3 +4,6 @@
 [submodule "email-service"]
 	path = email-service
 	url = git@github.com:SST-Bappu/email-service.git
+[submodule "course-service"]
+	path = course-service
+	url = git@github.com:SST-Bappu/course-service.git
