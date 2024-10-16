@@ -1,9 +1,5 @@
 # Course Recommendation Microservice Project (ML Powered)
 
-
-
-
-
 ## Introduction
 
 Welcome to the ML-Powered Course Recommendation Microservice Project! This project emulates the core functionalities of an online learning platform, focusing on user authentication, course management, email notifications, and personalized course recommendations powered by machine learning.
@@ -21,6 +17,33 @@ The project comprises three main microservices:
 3. **Email Service**
 
 These services interact through a **Kafka message broker** and utilize dedicated databases to manage their respective data. Authentication is handled via **JWT tokens**, ensuring secure and stateless user sessions.
+
+## Kubernetes and Jenkins Flow
+
+To ensure seamless deployment, scalability, and continuous integration/continuous deployment (CI/CD), the project leverages **Kubernetes (K8s)** for container orchestration and **Jenkins** for automating the build and deployment pipelines.
+
+### Kubernetes Setup
+
+Each microservice (Auth, Course, and Email) is containerized using **Docker** and deployed as separate **Kubernetes pods** within the cluster. The services are exposed via **Kubernetes services**, and **Ingress controllers** are configured to manage external access. **Kafka** runs as part of the K8s setup, ensuring smooth communication between services. The database instances are connected via persistent volumes for data durability.
+
+- **Auth Service**: Runs in its own pod, exposing APIs for authentication.
+- **Course Service**: Also runs in a separate pod, connected to the PostgreSQL instance via persistent volumes.
+- **Email Service**: Deployed in its own pod and consumes tasks from Kafka topics.
+
+### Jenkins Pipeline
+
+A **Jenkins pipeline** automates the entire CI/CD process:
+
+1. **Code Changes**: Upon changes pushed to the version control system (e.g., GitHub), Jenkins automatically triggers a build pipeline.
+2. **Build & Test**: The code is tested, Docker images are built, and these images are pushed to a Docker registry.
+3. **Kubernetes Deployment**: Jenkins communicates with the Kubernetes cluster and deploys the updated images. Each microservice's pod is updated using a **rolling update strategy**, ensuring zero downtime.
+
+The pipeline stages are structured as follows:
+
+- **Build**: Creates a new Docker image for the updated microservice.
+- **Test**: Runs unit tests, integration tests, and checks for vulnerabilities.
+- **Deploy**: Deploys the service to the Kubernetes cluster.
+
 
 ### Graphical Representation
 
@@ -53,3 +76,8 @@ graph TD
     end
 
     B --> C
+
+
+
+
+
